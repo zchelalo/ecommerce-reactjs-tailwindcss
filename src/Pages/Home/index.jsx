@@ -1,30 +1,44 @@
-import { useState, useEffect } from 'react'
+import { useContext } from 'react'
+import { ProductosContext } from '../../Contexts/ProductosContext'
 import { Layout } from "../../Components/Layout"
 import { Card } from "../../Components/Card"
 import { DetalleProducto } from '../../Components/DetalleProducto'
 import { Checkout } from '../../Components/Checkout'
 
 function Home() {
-  const [items, setItems] = useState([])
+  const {
+    items,
+    valorBusqueda,
+    setValorBusqueda, 
+    itemsPorBusqueda
+  } = useContext(ProductosContext)
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const response = await fetch('https://fakestoreapi.com/products')
-        const data = await response.json()
-        setItems(data)
-      } catch (error) {
-        console.error(`Se recibio el siguiente error: ${error}`)
-      }
+  const cambiarValorBusqueda = (e) => {
+    if (e.target.value === ' ' && valorBusqueda === ''){
+      e.target.value = ''
+      return
     }
 
-    getProducts()
-  }, [])
+    setValorBusqueda(e.target.value)
+  }
+
+  const itemsToRender = () => {
+    return (valorBusqueda === '' && items.length > 0) ? items : ((valorBusqueda !== '' && itemsPorBusqueda.length > 0) ? itemsPorBusqueda : [])
+  }
 
   return (
     <Layout>
+      <header className='relative flex flex-col items-center justify-center w-80 mb-6'>
+        <h1 className='font-medium text-xl mb-4'>Lista de productos</h1>
+        <input 
+          type='search' 
+          placeholder='Busca un producto' 
+          className='rounded-lg border border-gray-700 w-80 p-4 focus:outline-none'
+          onChange={(e) => cambiarValorBusqueda(e)}
+        />
+      </header>
       <main className='grid grid-cols-4 w-full max-w-screen-lg gap-4'>
-        {items.length > 0 ? items.map(item => (
+        {itemsToRender().length > 0 ? itemsToRender().map(item => (
           <Card 
             key={item.id}
             id={item.id}
@@ -34,10 +48,7 @@ function Home() {
             title={item.title}
             description={item.description}
           />
-        ))
-        :
-          'No hay productos'
-        }
+        )) : 'No se encontraron productos D:' }
       </main>
       <DetalleProducto />
       <Checkout />

@@ -19,19 +19,19 @@ function OrdenesCard({ fecha, precioTotal, totalProductos }) {
 
   return (
     <div className='flex justify-between items-center border border-gray-600 p-4 w-80 rounded-lg mb-4'>
-      <p className='flex justify-between w-full'>
-        <div className='flex flex-col'>
+      <div className='flex justify-between w-full'>
+        <p className='flex flex-col'>
           <span className='font-light'>{nuevoFormatoFecha(fecha)}</span>
-          <span className='font-light flex items-center'>
-            <FaShoppingBasket className='mr-2' />
+          <span className='font-light flex items-center gap-2'>
+            <FaShoppingBasket />
             {totalProductos} Artículos
             </span>
-        </div>
-        <div className='flex items-center'>
+        </p>
+        <p className='flex items-center gap-2'>
           <span className='font-medium text-2xl'>${precioTotal.toFixed(2)}</span>
-          <IoIosArrowForward  className='text-black cursor-pointer ml-2' />
-        </div>
-      </p>
+          <IoIosArrowForward  className='h-6 w-6 text-black cursor-pointer' />
+        </p>
+      </div>
     </div>
   )
 }

@@ -11,18 +11,20 @@ function MisOrdenes() {
 
   return (
     <Layout>
-      <div className='relative flex items-center justify-center w-80 mb-6'>
+      <header className='relative flex items-center justify-center w-80 mb-6'>
         <h1 className='font-medium text-xl'>Mis ordenes</h1>
-      </div>
-      {orden.map(orden => (
-        <Link key={orden.id} to={`/mis-ordenes/${orden.id}`}>
-          <OrdenesCard 
-            fecha={orden.fecha}
-            precioTotal={orden.precioTotal}
-            totalProductos={orden.totalProductos}
-          />
-        </Link>
-      ))}
+      </header>
+      <main>
+        {orden.map(orden => (
+          <Link key={orden.id} to={`/mis-ordenes/${orden.id}`}>
+            <OrdenesCard 
+              fecha={orden.fecha}
+              precioTotal={orden.precioTotal}
+              totalProductos={orden.totalProductos}
+            />
+          </Link>
+        ))}
+      </main>
     </Layout>
   )
 }
