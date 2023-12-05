@@ -10,7 +10,8 @@ function Home() {
     items,
     valorBusqueda,
     setValorBusqueda, 
-    itemsPorBusqueda
+    itemsPorBusqueda,
+    busquedaPorCategoria
   } = useContext(ProductosContext)
 
   const cambiarValorBusqueda = (e) => {
@@ -23,7 +24,12 @@ function Home() {
   }
 
   const itemsToRender = () => {
-    return (valorBusqueda === '' && items.length > 0) ? items : ((valorBusqueda !== '' && itemsPorBusqueda.length > 0) ? itemsPorBusqueda : [])
+    return (valorBusqueda === '' && busquedaPorCategoria === '' && items.length > 0)
+      ? items : 
+    ( ((valorBusqueda !== '' && itemsPorBusqueda.length > 0) 
+    || (busquedaPorCategoria !== '' && itemsPorBusqueda.length > 0)) 
+      ? itemsPorBusqueda : 
+    [] )
   }
 
   return (

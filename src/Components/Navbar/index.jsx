@@ -1,14 +1,16 @@
 import { NavLink } from 'react-router-dom'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { ProductosContext } from '../../Contexts/ProductosContext'
 import { FaShoppingCart } from 'react-icons/fa'
 
 function Navbar() {
   const {
-    count
+    count,
+    categorias,
+    setBusquedaPorCategoria
   } = useContext(ProductosContext)
 
-  let menuIzquierda = [
+  const menuIzquierda = [
     {
       to: '/',
       text: 'Awason',
@@ -21,7 +23,7 @@ function Navbar() {
     }
   ]
   
-  let menuDerecha = [
+  const menuDerecha = [
     {
       text: 'eduardosaavedra687@gmail.com',
       className: 'text-black/60'
@@ -48,39 +50,12 @@ function Navbar() {
     },
   ]
 
-  const [categorias, setCategorias] = useState(menuIzquierda)
-
-  useEffect(() => {
-    const getCategorias = async () => {
-      try {
-        const response = await fetch('https://fakestoreapi.com/products/categories')
-        const data = await response.json()
-        const dataCategorias = data.map((categoria) => {
-          let detalleCategoria = {
-            to: `/${categoria.replace(/ /g, "-").replace(/'/g, "").replace(/"/g, "").replace(/,/g, "-")}`,
-            text: `${categoria.charAt(0).toUpperCase() + categoria.slice(1)}`,
-            className: ''
-          }
-
-          return detalleCategoria
-        })
-
-        setCategorias(categorias.concat(dataCategorias))
-      } catch (error) {
-        console.error(`Se recibio el siguiente error: ${error}`)
-      }
-    }
-
-    getCategorias()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   const activeStyle = 'underline underline-offset-4'
 
   return (
     <nav className='flex justify-between items-center fixed z-1 top-0 w-full py-5 px-8 text-sm font-light'>
       <ul className='flex items-center gap-3'>
-        {categorias.map((item, index) => (
+        {menuIzquierda.concat(categorias).map((item, index) => (
           <li 
             className={item.className}
             key={item.text}
@@ -89,6 +64,7 @@ function Navbar() {
               <NavLink 
                 to={item.to}
                 className={({ isActive }) => (isActive && index !== 0) ? `${activeStyle} flex flex-between items-center` : 'flex flex-between items-center'}
+                onClick={() => setBusquedaPorCategoria(item.text)}
               >
                 {item.icon !== undefined ? item.icon : null} 
                 {item.text}
@@ -102,6 +78,7 @@ function Navbar() {
           </li>
         ))}
       </ul>
+
       <ul className='flex items-center gap-3'>
         {menuDerecha.map((item, index) => (
           <li 
