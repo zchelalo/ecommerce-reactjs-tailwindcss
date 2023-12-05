@@ -8,14 +8,16 @@ import './Card.css'
 
 function Card({ id, category, image, price, title, description }) {
   const {
-    count,
-    setCount,
     setIsOpenDetalleProducto,
     setMostrarProducto, 
     productosCarrito,
     setProductosCarrito,
     setIsOpenCheckout
   } = useContext(ProductosContext)
+
+  const existeEnCarrito = (id) => {
+    return productosCarrito.find((producto) => producto.id === id) ? true : false
+  }
 
   const addProductoCarrito = (e) => {
     e.stopPropagation()
@@ -25,7 +27,6 @@ function Card({ id, category, image, price, title, description }) {
       return
     }
 
-    setCount(count + 1)
     setIsOpenDetalleProducto(false)
     setIsOpenCheckout(true)
 
@@ -53,10 +54,10 @@ function Card({ id, category, image, price, title, description }) {
           className='Card-img w-full h-full object-cover rounded-lg'
         />
         <div 
-          className={`${productosCarrito.find((producto) => producto.id === id) ? 'bg-gray-900 text-white' : 'bg-white'} absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1`}
+          className={`${existeEnCarrito(id) ? 'text-white bg-gray-800' : 'bg-white'} absolute top-0 right-0 flex justify-center items-center w-6 h-6 rounded-full m-2 p-1`}
           onClick={addProductoCarrito}
         >
-          {productosCarrito.find((producto) => producto.id === id) ? <FaCheck /> : <FaPlus />}
+          {existeEnCarrito(id) ? <FaCheck /> : <FaPlus />}
         </div>
       </figure>
       <p className='flex justify-between'>

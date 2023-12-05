@@ -5,7 +5,6 @@ import { createContext, useEffect, useState } from 'react'
 const ProductosContext = createContext()
 
 function ProductosProvider({ children }) {
-  const [count, setCount] = useState(0)
   const [isOpenDetalleProducto, setIsOpenDetalleProducto] = useState(false)
   const [isOpenCheckout, setIsOpenCheckout] = useState(false)
   const [mostrarProducto, setMostrarProducto] = useState({})
@@ -104,8 +103,6 @@ function ProductosProvider({ children }) {
 
   return (
     <ProductosContext.Provider value={{ 
-      count,
-      setCount,
       isOpenDetalleProducto,
       setIsOpenDetalleProducto,
       mostrarProducto,

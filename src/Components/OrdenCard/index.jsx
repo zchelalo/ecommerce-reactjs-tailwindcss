@@ -7,13 +7,9 @@ function OrdenCard({ id, title, image, price, isMiOrden = false }) {
   const {
     productosCarrito,
     setProductosCarrito,
-    count,
-    setCount
   } = useContext(ProductosContext)
 
   const quitarProducto = () => {
-    setCount(count - 1)
-
     let newProductos = [...productosCarrito]
     const indice = productosCarrito.findIndex((producto) => producto.id === id)
     newProductos.splice(indice, 1)

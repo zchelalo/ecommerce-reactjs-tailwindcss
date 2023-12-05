@@ -5,9 +5,9 @@ import { FaShoppingCart } from 'react-icons/fa'
 
 function Navbar() {
   const {
-    count,
     categorias,
-    setBusquedaPorCategoria
+    setBusquedaPorCategoria,
+    productosCarrito
   } = useContext(ProductosContext)
 
   const menuIzquierda = [
@@ -45,7 +45,7 @@ function Navbar() {
     },
     {
       icon: <FaShoppingCart className='m-2' />,
-      text: count,
+      text: productosCarrito.length,
       className: ''
     },
   ]

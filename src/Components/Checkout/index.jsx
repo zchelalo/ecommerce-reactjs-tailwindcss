@@ -14,7 +14,7 @@ function Checkout() {
     orden,
     setOrden,
     setProductosCarrito,
-    setCount
+    setValorBusqueda
   } = useContext(ProductosContext)
 
   const handleCheckout = () => {
@@ -28,7 +28,8 @@ function Checkout() {
 
     setOrden([...orden, ordenParaAgregar])
     setProductosCarrito([])
-    setCount(0)
+    setValorBusqueda('')
+    setIsOpenCheckout(false)
   }
 
   return (

@@ -1,9 +1,10 @@
 import { useContext } from 'react'
 import { ProductosContext } from '../../Contexts/ProductosContext'
-import { Layout } from "../../Components/Layout"
-import { Card } from "../../Components/Card"
+import { Layout } from '../../Components/Layout'
+import { Card } from '../../Components/Card'
 import { DetalleProducto } from '../../Components/DetalleProducto'
 import { Checkout } from '../../Components/Checkout'
+import { SinProductos } from '../../Components/SinProductos'
 
 function Home() {
   const {
@@ -29,6 +30,7 @@ function Home() {
           type='search' 
           placeholder='Busca un producto' 
           className='rounded-lg border border-gray-700 w-80 p-4 focus:outline-none'
+          value={valorBusqueda}
           onChange={(e) => cambiarValorBusqueda(e)}
         />
       </header>
@@ -43,7 +45,7 @@ function Home() {
             title={item.title}
             description={item.description}
           />
-        )) : 'No se encontraron productos D:' }
+        )) : <SinProductos /> }
       </main>
       <DetalleProducto />
       <Checkout />
