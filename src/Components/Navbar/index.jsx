@@ -64,7 +64,7 @@ function Navbar() {
               <NavLink 
                 to={item.to}
                 className={({ isActive }) => (isActive && index !== 0) ? `${activeStyle} flex flex-between items-center` : 'flex flex-between items-center'}
-                onClick={() => setBusquedaPorCategoria(item.text)}
+                onClick={() => item.to !== '/' ? setBusquedaPorCategoria(item.text) : setBusquedaPorCategoria('Home')}
               >
                 {item.icon !== undefined ? item.icon : null} 
                 {item.text}

@@ -7,11 +7,9 @@ import { Checkout } from '../../Components/Checkout'
 
 function Home() {
   const {
-    items,
     valorBusqueda,
     setValorBusqueda, 
-    itemsPorBusqueda,
-    busquedaPorCategoria
+    itemsPorBusqueda
   } = useContext(ProductosContext)
 
   const cambiarValorBusqueda = (e) => {
@@ -21,15 +19,6 @@ function Home() {
     }
 
     setValorBusqueda(e.target.value)
-  }
-
-  const itemsToRender = () => {
-    return (valorBusqueda === '' && busquedaPorCategoria === '' && items.length > 0)
-      ? items : 
-    ( ((valorBusqueda !== '' && itemsPorBusqueda.length > 0) 
-    || (busquedaPorCategoria !== '' && itemsPorBusqueda.length > 0)) 
-      ? itemsPorBusqueda : 
-    [] )
   }
 
   return (
@@ -44,7 +33,7 @@ function Home() {
         />
       </header>
       <main className='grid grid-cols-4 w-full max-w-screen-lg gap-4'>
-        {itemsToRender().length > 0 ? itemsToRender().map(item => (
+        {itemsPorBusqueda?.length > 0 ? itemsPorBusqueda?.map(item => (
           <Card 
             key={item.id}
             id={item.id}

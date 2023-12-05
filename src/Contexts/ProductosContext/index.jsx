@@ -12,10 +12,12 @@ function ProductosProvider({ children }) {
   const [productosCarrito, setProductosCarrito] = useState([])
   const [orden, setOrden] = useState([])
   const [items, setItems] = useState([])
+
   const [valorBusqueda, setValorBusqueda] = useState('')
-  const [itemsPorBusqueda, setItemsPorBusqueda] = useState([])
-  const [categorias, setCategorias] = useState([])
   const [busquedaPorCategoria, setBusquedaPorCategoria] = useState('')
+  const [itemsPorBusqueda, setItemsPorBusqueda] = useState([])
+
+  const [categorias, setCategorias] = useState([])
 
   useEffect(() => {
     const getCategorias = async () => {
@@ -61,7 +63,7 @@ function ProductosProvider({ children }) {
   }
 
   const filtrarItemsPorCategoria = (items, busquedaPorCategoria) => {
-    return busquedaPorCategoria !== '' ? items?.filter(item => item.category.toLocaleLowerCase().includes(busquedaPorCategoria.toLocaleLowerCase())) : []
+    return busquedaPorCategoria !== '' ? items?.filter(item => item.category.toLocaleLowerCase() === busquedaPorCategoria.toLocaleLowerCase()) : []
   }
 
   const filterBy = (items, tipoBusqueda, valorBusqueda, busquedaPorCategoria) => {
@@ -74,7 +76,9 @@ function ProductosProvider({ children }) {
     }
 
     if (tipoBusqueda === 'POR_BUSQUEDA_CATEGORIA'){
-      return busquedaPorCategoria === 'Home' ? filtrarItemsPorBusqueda(items, valorBusqueda) : filtrarItemsPorCategoria(items, busquedaPorCategoria).filter(item => item.title.toLocaleLowerCase().includes(valorBusqueda.toLocaleLowerCase()))
+      return busquedaPorCategoria === 'Home' ? 
+      filtrarItemsPorBusqueda(items, valorBusqueda) : 
+      filtrarItemsPorCategoria(items, busquedaPorCategoria).filter(item => item.title.toLocaleLowerCase().includes(valorBusqueda.toLocaleLowerCase()))
     }
 
     return items
